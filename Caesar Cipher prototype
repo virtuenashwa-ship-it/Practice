@@ -11,7 +11,7 @@ def caesar(text, shift, encrypt=True):
 
     if not encrypt:
         shift = - shift
-    
+#step.3 condition to apply perform actual encryption using methods and a str.maketrans
     shifted_alphabet = alphabet[shift:] + alphabet[:shift]
     translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
     return text.translate(translation_table)
