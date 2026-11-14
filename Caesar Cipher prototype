@@ -1,8 +1,11 @@
 #function to create cipher with parameters set to text, shift and encrypt.
+
 def caesar(text, shift, encrypt=True):
+
 #step.1 condition to make check if input is a integer
     if not isinstance(shift, int) or isinstance(shift, bool):
         return 'Shift must be an integer value.'
+
 #step.2 condition to check if input is between designated parameters
     if shift < 1 or shift > 25:
         return 'Shift must be an integer between 1 and 25.'
@@ -11,13 +14,16 @@ def caesar(text, shift, encrypt=True):
 
     if not encrypt:
         shift = - shift
+
 #step.3 condition to apply perform actual encryption using methods and a str.maketrans
     shifted_alphabet = alphabet[shift:] + alphabet[:shift]
     translation_table = str.maketrans(alphabet + alphabet.upper(), shifted_alphabet + shifted_alphabet.upper())
     return text.translate(translation_table)
+
 #step.4 second function for input to encrypt user input
 def encrypt(text, shift):
     return caesar(text, shift)
+
 #step.5 third function for input to decrypt user input    
 def decrypt(text, shift):
     return caesar(text, shift, encrypt=False)
