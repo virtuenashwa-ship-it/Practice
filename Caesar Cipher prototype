@@ -3,7 +3,7 @@ def caesar(text, shift, encrypt=True):
 #step.1 condition to make check if input is a integer
     if not isinstance(shift, int) or isinstance(shift, bool):
         return 'Shift must be an integer value.'
-
+#step.2 condition to check if input is between designated parameters
     if shift < 1 or shift > 25:
         return 'Shift must be an integer between 1 and 25.'
 
