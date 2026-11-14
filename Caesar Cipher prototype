@@ -1,5 +1,6 @@
+#function to create cipher with parameters set to text, shift and encrypt.
 def caesar(text, shift, encrypt=True):
-
+#step.1 condition to make check if input is a integer
     if not isinstance(shift, int) or isinstance(shift, bool):
         return 'Shift must be an integer value.'
 
