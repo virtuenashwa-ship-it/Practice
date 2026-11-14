@@ -18,7 +18,7 @@ def caesar(text, shift, encrypt=True):
 #step.4 second function for input to encrypt user input
 def encrypt(text, shift):
     return caesar(text, shift)
-    
+#step.5 third function for input to decrypt user input    
 def decrypt(text, shift):
     return caesar(text, shift, encrypt=False)
 
