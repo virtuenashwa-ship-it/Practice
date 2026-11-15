@@ -2,6 +2,8 @@ available_eggs = 1
 available_flour = 2
 available_sugar = 3
 
+
+# Step 1: Check the available inventory and add the total sum.
 def check_kitchen_stock():
     total_items = available_eggs + available_flour + available_sugar
     print(f'The kitchen has {total_items} total items:')
@@ -11,6 +13,7 @@ def check_kitchen_stock():
 
 check_kitchen_stock()
 
+# Step 2: Check and update the inventory based on the use of ingredients.
 def use_eggs(available_eggs, eggs_to_use):
     if eggs_to_use > available_eggs:
         print('The kitchen does not have enough eggs.')
@@ -22,6 +25,8 @@ def use_eggs(available_eggs, eggs_to_use):
 use_eggs(available_eggs, 1)
 print(available_eggs)
 
+
+# Step 3: Check if enough ingredients are available for recipe.
 def make_fried_egg(available_eggs):
     has_enough_eggs = available_eggs >= 1
 
