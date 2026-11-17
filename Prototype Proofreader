@@ -1,0 +1,74 @@
+/**
+ * 1. Checks if a word string is a palindrome (case-insensitive).
+ */
+function isPalindrome(word) {
+    if (typeof word !== 'string') return false;
+    const lower = word.toLowerCase();
+    const reversed = lower.split('').reverse().join('');
+    return lower === reversed;
+}
+
+/**
+ * 2. Takes a words array and returns an array of indices of words that are not palindromes.
+ * Returns an empty array if input is empty.
+ */
+function findPalindromeBreaks(words) {
+    if (!Array.isArray(words) || words.length === 0) {
+        return [];
+    }
+    const breaks = [];
+    for (let i = 0; i < words.length; i++) {
+        if (!isPalindrome(words[i])) {
+            breaks.push(i);
+        }
+    }
+    return breaks;
+}
+
+/**
+ * 3. Finds all start indices where a sequence of phraseLength consecutive words 
+ * appears more than once in the array (including overlapping sequences).
+ */
+function findRepeatedPhrases(words, phraseLength) {
+    if (!Array.isArray(words) || phraseLength >= words.length || phraseLength <= 0) {
+        return [];
+    }
+    
+    const phraseMap = new Map();
+    const phrases = [];
+    
+    for (let i = 0; i <= words.length - phraseLength; i++) {
+        const phrase = words.slice(i, i + phraseLength);
+        const key = JSON.stringify(phrase);
+        
+        if (!phraseMap.has(key)) {
+            phraseMap.set(key, []);
+        }
+        phraseMap.get(key).push(i);
+        phrases.push({ index: i, key });
+    }
+    
+    const result = [];
+    for (const item of phrases) {
+        if (phraseMap.get(item.key).length > 1) {
+            result.push(item.index);
+        }
+    }
+    
+    return result;
+}
+
+/**
+ * 4. Processes each element of texts (each an array of words) and returns 
+ * an array of objects with repeatedPhrases and palindromeBreaks properties.
+ */
+function analyzeTexts(texts, phraseLength) {
+    if (!Array.isArray(texts) || texts.length === 0) {
+        return [];
+    }
+    
+    return texts.map(words => ({
+        repeatedPhrases: findRepeatedPhrases(words, phraseLength),
+        palindromeBreaks: findPalindromeBreaks(words)
+    }));
+}
