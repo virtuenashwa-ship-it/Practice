@@ -10,6 +10,8 @@ def pin_extractor(poems):
 
         #Split the poem into individual lines wherever there is a newline    
         lines = poem.split('\n')
+
+        # Loop through each line and keep track of its index (0, 1, 2...)
         for line_index, line in enumerate(lines):
             words = line.split()
             if len(words) > line_index:
