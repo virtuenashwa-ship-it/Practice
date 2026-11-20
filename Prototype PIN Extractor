@@ -13,6 +13,8 @@ def pin_extractor(poems):
 
         # Loop through each line and keep track of its index (0, 1, 2...)
         for line_index, line in enumerate(lines):
+
+           # Split the current line into a list of words
             words = line.split()
             if len(words) > line_index:
                 secret_code += str(len(words[line_index]))
