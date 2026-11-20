@@ -1,6 +1,8 @@
 def pin_extractor(poems):
     # Create an empty list to store the PIN for every poem
     secret_codes = []
+
+    # Loop through each poem in the list one by one
     for poem in poems:
         secret_code = ''
         lines = poem.split('\n')
