@@ -19,6 +19,8 @@ def pin_extractor(poems):
 
             # Check if the line has enough words to reach line_index
             if len(words) > line_index:
+
+                # Grab the word at position line_index, get its length, and add it to the PIN
                 secret_code += str(len(words[line_index]))
             else:
                 secret_code += '0'
