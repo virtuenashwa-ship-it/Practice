@@ -26,6 +26,8 @@ def pin_extractor(poems):
 
                 # If the line is too short, add '0' instead of crashing  
                 secret_code += '0'
+
+        # Save the finished PIN for this poem into secret_codes
         secret_codes.append(secret_code)
     return secret_codes
 
