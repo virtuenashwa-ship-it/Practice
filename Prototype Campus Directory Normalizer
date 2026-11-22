@@ -1,3 +1,5 @@
+// Example nested object holding campus directory data grouped by department name.
+
 const rawData = {
   "Computer Science": {
     Dept_code: "CSE",
