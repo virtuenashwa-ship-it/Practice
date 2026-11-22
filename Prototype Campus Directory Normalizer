@@ -75,6 +75,7 @@ function normalizeDirectory(rawData) {
 // Step 1: Loop through each department
   for (let i = 0; i < departmentEntries.length; i++) {
 
+// Pull out the department name and its object data for this iteration
     const [departmentName, departmentData] = departmentEntries[i];
 
     const departmentId = departmentData.Dept_code || `dept-${i + 1}`;
