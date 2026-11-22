@@ -81,6 +81,7 @@ function normalizeDirectory(rawData) {
 // Use Dept_code as the ID, or fall back to "dept-1", "dept-2", etc. if missing
     const departmentId = departmentData.Dept_code || `dept-${i + 1}`;
 
+// Save the department record under its ID, with an empty programIds list to fill next
     departmentsById[departmentId] = {
       id: departmentId,
       code: departmentData.Dept_code,
