@@ -9,6 +9,8 @@ def number_pattern(n):
         return 'Argument must be an integer greater than 0.'
 
     pattern = []
+
+    #loop through the list and adds string number to the end of pattern 
     for num in range(1, n + 1):
         pattern.append(str(num))
 
