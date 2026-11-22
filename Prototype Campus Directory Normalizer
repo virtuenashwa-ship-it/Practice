@@ -89,6 +89,7 @@ function normalizeDirectory(rawData) {
       programIds: [],
     };
 
+// Step 2: Loop through every program inside this department
     for (let j = 0; j < departmentData.programs.length; j++) {
       const program = departmentData.programs[j];
 
