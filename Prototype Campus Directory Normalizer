@@ -63,6 +63,7 @@ const rawData = {
 // Flattens the nested rawData into lookup tables (objects keyed by ID or email).
 
 function normalizeDirectory(rawData) {
+// Four lookup objects we will fill up as we loop through the data.
   const departmentsById = {};
   const programsById = {};
   const instructorsById = {};
