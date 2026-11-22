@@ -93,21 +93,27 @@ function normalizeDirectory(rawData) {
     for (let j = 0; j < departmentData.programs.length; j++) {
       const program = departmentData.programs[j];
 
+// Store the program under its ID, copying all its fields and linking departmentId
       programsById[program.id] = {
         ...program,
         departmentId,
       };
 
+// Record this program's ID on its parent department
       departmentsById[departmentId].programIds.push(program.id);
+
+// Step 3: Loop through every instructor teaching this program
       for (let k = 0; k < program.instructors.length; k++) {
         const instructor = program.instructors[k];
 
+// Store the instructor under their ID, adding which program and department they belong to
         instructorsById[instructor.id] = {
           ...instructor,
           programId: program.id,
           departmentId,
         };
 
+// If the instructor has an email, map email -> instructor ID for fast email lookups
         if (instructor.email) {
           instructorsByEmail[instructor.email] = instructor.id;
         }
@@ -115,6 +121,7 @@ function normalizeDirectory(rawData) {
     }
   }
 
+// Return all four lookup tables together
   return {
     departmentsById,
     programsById,
@@ -123,19 +130,24 @@ function normalizeDirectory(rawData) {
   };
 }
 
+// Run normalizeDirectory once on rawData and save the organized result
 const normalizedData = normalizeDirectory(rawData);
 
-
+// Looks up an instructor by their email and returns a clean summary object
 function getInstructorByEmail(email, normalizedData) {
+  // Find the instructor's ID using the email lookup table
   const instructorId = normalizedData.instructorsByEmail[email];
 
+  // Stop and return a message if no instructor matches that email
   if (!instructorId) {
     return "Instructor not found";
   }
 
+  // Grab the full instructor record and their department record using their IDs
   const instructor = normalizedData.instructorsById[instructorId];
   const department = normalizedData.departmentsById[instructor.departmentId];
 
+  // Return formatted info, using fallback text if officeHours (or name/department) is null/undefined
   return {
     name: instructor.name ?? "Unknown Instructor",
     officeHours: instructor.officeHours ?? "Not Available",
@@ -143,31 +155,37 @@ function getInstructorByEmail(email, normalizedData) {
   };
 }
 
-
+// Returns a sorted list of rooms used by programs in a given department/building code
 function listRoomsByBuilding(buildingCode, normalizedData) {
-
+  // Get an array of all program objects
   const programValues = Object.values(normalizedData.programsById);
   const rooms = [];
 
+  // Check each program one by one
   for (let i = 0; i < programValues.length; i++) {
     const program = programValues[i];
+    // Find the department this program belongs to
     const department = normalizedData.departmentsById[program.departmentId];
 
+    // Keep the room if the department code matches AND room is not null or undefined
     if (department.code === buildingCode && program.room != null) {
       rooms.push(program.room);
     }
   }
 
+  // Sort the room list alphabetically/numerically (as strings) and return it
   rooms.sort();
   return rooms;
 }
 
-
+// Builds a text report with totals and counts of missing rooms or office hours
 function renderDirectorySummary(normalizedData) {
+  // Count how many departments, programs, and instructors exist by checking key counts
   const departments = Object.keys(normalizedData.departmentsById).length;
   const programs = Object.keys(normalizedData.programsById).length;
   const instructors = Object.keys(normalizedData.instructorsById).length;
 
+  // Count how many instructors have no office hours set (null or undefined)
   const instructorValues = Object.values(normalizedData.instructorsById);
   let missingOfficeHours = 0;
 
@@ -177,6 +195,7 @@ function renderDirectorySummary(normalizedData) {
     }
   }
 
+  // Count how many programs have room strictly equal to null
   const programValues = Object.values(normalizedData.programsById);
   let programsWithoutRooms = 0;
 
@@ -185,12 +204,13 @@ function renderDirectorySummary(normalizedData) {
       programsWithoutRooms++;
     }
   }
-  
+
+  // Format and return the multi-line summary string
   return `Campus Directory Summary
 ------------------------
 Departments: ${departments}
 Programs: ${programs}
 Instructors: ${instructors}
 Missing Office Hours: ${missingOfficeHours}
-Programs Without Rooms: ${programsWithoutRooms}`
+Programs Without Rooms: ${programsWithoutRooms}`;
 }
