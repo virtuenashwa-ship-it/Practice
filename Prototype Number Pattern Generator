@@ -4,6 +4,7 @@ def number_pattern(n):
     if not isinstance(n, int) or isinstance(n, bool):
         return 'Argument must be an integer value.'
     
+    #check if the number is lower than 1 if it is return phrase
     if n < 1:
         return 'Argument must be an integer greater than 0.'
 
