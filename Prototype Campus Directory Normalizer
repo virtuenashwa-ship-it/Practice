@@ -69,6 +69,7 @@ function normalizeDirectory(rawData) {
   const instructorsById = {};
   const instructorsByEmail = {};
 
+// Turn rawData into an array of [departmentName, departmentData] pairs
   const departmentEntries = Object.entries(rawData);
 
   for (let i = 0; i < departmentEntries.length; i++) {
