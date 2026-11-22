@@ -78,6 +78,7 @@ function normalizeDirectory(rawData) {
 // Pull out the department name and its object data for this iteration
     const [departmentName, departmentData] = departmentEntries[i];
 
+// Use Dept_code as the ID, or fall back to "dept-1", "dept-2", etc. if missing
     const departmentId = departmentData.Dept_code || `dept-${i + 1}`;
 
     departmentsById[departmentId] = {
